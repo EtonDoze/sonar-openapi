@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.sonarsource.parent</groupId>
+    <artifactId>parent</artifactId>
+    <version>52</version>
+  </parent>
+
+  <groupId>com.societegenerale.sonar.openapi</groupId>
+  <artifactId>openapi</artifactId>
+  <version>1.2.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>SonarOpenAPI</name>
+  <description>Code Analyze for OpenAPI</description>
+  <inceptionYear>2018</inceptionYear>
+  <organization>
+    <name>Societe Generale</name>
+  </organization>
+  <licenses>
+    <license>
+      <name>GNU LGPL 3</name>
+      <url>http://www.gnu.org/licenses/lgpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>vgirardreydet</id>
+      <name>Vincent Girard-Reydet</name>
+      <email>vincent.girard-reydet@socgen.com</email>
+      <organization>Societe Generale</organization>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/societe-generale/sonar-openapi</url>
+    <connection>scm:git:git@github.com:societe-generale/sonar-openapi.git</connection>
+    <developerConnection>scm:git:git@github.com:societe-generale/sonar-openapi.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+
+  <ciManagement>
+    <system>Travis</system>
+    <url>https://travis-ci.org/societe-generale/sonar-openapi</url>
+  </ciManagement>
+
+  <modules>
+    <module>openapi-front-end</module>
+    <module>openapi-test-tools</module>
+    <module>openapi-checks</module>
+    <module>sonar-openapi-plugin</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <license.title>SonarQube OpenAPI Plugin</license.title>
+    <license.owner>Societe Generale</license.owner>
+    <license.mailto>vincent.girard-reydet AT socgen DOT com</license.mailto>
+    <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
+    <sonar.pluginClass>org.sonar.plugins.openapi.OpenApiPlugin</sonar.pluginClass>
+    <sonar.pluginName>OpenAPI</sonar.pluginName>
+    <sonarQubeMinVersion>6.7</sonarQubeMinVersion>
+
+    <!-- Dependencies versions -->
+    <assertj-core.version>3.6.1</assertj-core.version>
+    <commons.io.version>2.5</commons.io.version>
+    <commons.lang.version>2.6</commons.lang.version>
+    <guava.version>22.0</guava.version>
+    <jackson.version>2.6.2</jackson.version>
+    <junit.version>4.12</junit.version>
+    <logback.version>1.1.7</logback.version>
+    <mockito.version>1.10.19</mockito.version>
+    <sonar.version>6.7.4</sonar.version>
+    <sonar.orchestrator.version>3.15.2.1322</sonar.orchestrator.version>
+    <sonarlint-core.version>3.0.0.1140</sonarlint-core.version>
+    <sslr.version>1.22</sslr.version>
+    <sslr.xpath.version>1.22</sslr.xpath.version>
+    <woodstox.version>4.4.1</woodstox.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- compile dependencies -->
+      <dependency>
+        <groupId>org.sonarsource.sslr</groupId>
+        <artifactId>sslr-core</artifactId>
+        <version>${sslr.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.sonarsource.sslr</groupId>
+        <artifactId>sslr-toolkit</artifactId>
+        <version>${sslr.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.sonarsource.sslr</groupId>
+        <artifactId>sslr-xpath</artifactId>
+        <version>${sslr.xpath.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.dataformat</groupId>
+        <artifactId>jackson-dataformat-yaml</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.sonarsource.analyzer-commons</groupId>
+        <artifactId>sonar-analyzer-commons</artifactId>
+        <version>1.6.0.219</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.staxmate</groupId>
+        <artifactId>staxmate</artifactId>
+        <version>2.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.sonarsource.orchestrator</groupId>
+        <artifactId>sonar-orchestrator</artifactId>
+        <version>${sonar.orchestrator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${commons.lang.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons.io.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.woodstox</groupId>
+        <artifactId>woodstox-core-lgpl</artifactId>
+        <version>${woodstox.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+
+      <!-- test dependencies -->
+      <dependency>
+        <groupId>org.sonarsource.sonarqube</groupId>
+        <artifactId>sonar-testing-harness</artifactId>
+        <version>${sonar.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.sonarsource.sslr</groupId>
+        <artifactId>sslr-testing-harness</artifactId>
+        <version>${sslr.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj-core.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.sonarsource.sonarlint.core</groupId>
+        <artifactId>sonarlint-core</artifactId>
+        <version>${sonarlint-core.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+
+      <!-- provided dependencies -->
+      <dependency>
+        <groupId>org.sonarsource.sonarqube</groupId>
+        <artifactId>sonar-plugin-api</artifactId>
+        <version>${sonar.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <profiles>
+    <profile>
+      <id>its</id>
+      <modules>
+        <module>its</module>
+      </modules>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>integration-test</id>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>integration-test</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>verify</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>
