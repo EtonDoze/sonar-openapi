@@ -54,17 +54,18 @@ sonar.projectVersion=1.0
  
 # Path is relative to the sonar-project.properties file. Replace "\" by "/" on Windows.
 # This property is optional if sonar.modules is set. 
-sonar.sources=.
+sonar.sources=src,contracts
   
 # Encoding of the source code. Default is default system encoding
 sonar.sourceEncoding=UTF-8
-# Select the language to use for analysis 
-sonar.language=openapi
 
-# OpenAPI-specific properties go here
-sonar.openapi.path.v2=v2/*
-sonar.openapi.path.v3=v3/*
+# OpenAPI-specific properties go here (folders are relative to source folders)
+# DON'T ADD "./" in front of the paths as it will mess-up Sonar pattern matching
+sonar.openapi.path.v2=contracts/v2/*
+sonar.openapi.path.v3=contracts/v3/*
 ```
+
+This example configuration will analyze any contract file (\*.json or \*.yaml) in any of the contracts/v2 and contracts/v3 folders.
 
 For details about how to configure SonarQube Scanner to analyze your projects, see [the documentation](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner).
 
