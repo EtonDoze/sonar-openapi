@@ -1,10 +1,12 @@
-SonarOpenApi
-============
+# SonarOpenApi [![Build Status](https://travis-ci.org/societe-generale/sonar-openapi.svg?branch=master)](https://travis-ci.org/societe-generale/sonar-openapi) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=societe-generale_sonar-openapi&metric=alert_status)](https://sonarcloud.io/dashboard?id=societe-generale_sonar-openapi)
 
 SonarOpenApi is a code analyzer for OpenAPI specifications. 
 
-Features
---------
+**Build status (all branches)**
+
+[![Build Status](https://api.travis-ci.org/societe-generale/sonar-openapi.svg)](https://travis-ci.org/societe-generale/sonar-openapi)
+
+## Features
 
 * Full compatibility with OpenAPI v2.0, v3.0.0 and v3.0.1
 * 9 generic rules (pending more checks for OpenAPI conformity)
@@ -12,17 +14,15 @@ Features
 
 ![SonarOpenApi in action](sonarqube.jpg)
 
-License
--------
+## License
 
-Copyright 2018 Société Générale.
+Copyright 2018-2019 Société Générale.
 
 Licensed under the [GNU Lesser General Public License, Version 3.0](http://www.gnu.org/licenses/lgpl.txt)
 
 <a name="install"></a>
 
-Installing
-----------
+## Installing
 
 To install the plugin, you need to compile it, then install it in your SonarQube server.
 
@@ -32,8 +32,7 @@ To install the plugin, you need to compile it, then install it in your SonarQube
    your SonarQube installation (you can install a local copy [from here](https://www.sonarqube.org/downloads/) for testing).
 4. Restart your SonarQube server.
 
-Analyzing your projects
------------------------
+## Analyzing your projects
 
 To analyze your projects, you must first [install](#install) the plugin.
 
@@ -54,18 +53,17 @@ sonar.projectVersion=1.0
  
 # Path is relative to the sonar-project.properties file. Replace "\" by "/" on Windows.
 # This property is optional if sonar.modules is set. 
-sonar.sources=src,contracts
+sonar.sources=.
   
 # Encoding of the source code. Default is default system encoding
 sonar.sourceEncoding=UTF-8
+# Select the language to use for analysis 
+sonar.language=openapi
 
-# OpenAPI-specific properties go here (folders are relative to source folders)
-# DON'T ADD "./" in front of the paths as it will mess-up Sonar pattern matching
-sonar.openapi.path.v2=contracts/v2/*
-sonar.openapi.path.v3=contracts/v3/*
+# OpenAPI-specific properties go here
+sonar.openapi.path.v2=v2/*
+sonar.openapi.path.v3=v3/*
 ```
-
-This example configuration will analyze any contract file (\*.json or \*.yaml) in any of the contracts/v2 and contracts/v3 folders.
 
 For details about how to configure SonarQube Scanner to analyze your projects, see [the documentation](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner).
 
@@ -178,14 +176,13 @@ paths:
 
 As for `x-nosonar`, the `x-sonar-disable` and `x-sonar-enable` extensions accept a single string or an array of strings.
 
-Contributing
-------------
+## Contributing
 
 ### Pull Request (PR)
 
 To submit a contribution, create a pull request for this repository. Please make sure that you follow our
 [code style](https://github.com/SonarSource/sonar-developer-toolset#code-style) and all [tests](#testing) are passing 
-([Jenkins build](https://cdp-jenkins-gdp.paas-dev.fr.world.socgen/job/SystemTeam/job/sonar-openapi/) will be created for each PR).
+([Travis build](https://travis-ci.org/societe-generale/sonar-openapi) will be created for each PR).
 
 ### Custom Rules
 
@@ -193,8 +190,7 @@ If you have an idea for a rule but you are not sure that everyone needs it you c
 available only for you.
 
 <a name="testing"></a>
-Testing
--------
+## Testing
 
 To run tests locally follow these instructions.
 
@@ -206,5 +202,17 @@ To build the plugin and run its unit tests, execute this command from the projec
 
 ### Integration Tests
 
-**Contribution needed!** There are no integration tests for now. We need a solution similar to the one adopted by
-the [Sonar Java](https://github.com/SonarSource/sonar-java) or [Sonar Python](https://github.com/SonarSource/sonar-python) plugins.
+Integration tests are provided with the plugin. To include them, use the "its" profile:
+
+    mvn -Pits clean install
+
+If you are running behind an enterprise proxy, specify the java proxy options on the command line:
+
+- http.proxyHost
+- http.proxyPort
+- http.proxyUser
+- http.proxyPassword
+- https.proxyHost
+- https.proxyPort
+- https.proxyUser
+- https.proxyPassword
